@@ -47,12 +47,17 @@ runs:
         VERSION: ${{ steps.bump-version.outputs.version }}
       with:
         script: |
-          github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: "refs/tags/${{ env.VERSION }}",
-            sha: context.sha
-          })
+          try {
+            await github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{ env.VERSION }}",
+              sha: context.sha
+            })
+          } catch(error) {
+            console.error(error)
+            core.setFailed(error)
+          }
 
     - name: Dispatch Workflow
       if: inputs.dispatch_workflow_id != ''
@@ -62,9 +67,14 @@ runs:
         VERSION: ${{ steps.bump-version.outputs.version }}
       with:
         script: |
-          github.rest.actions.createWorkflowDispatch({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: "${{ env.WORKFLOW_ID }}",
-            ref: "refs/tags/${{ env.VERSION }}"
-          })
+          try {
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "${{ env.WORKFLOW_ID }}",
+              ref: "refs/tags/${{ env.VERSION }}"
+            })
+          } catch(error) {
+            console.error(error)
+            core.setFailed(error)
+          }
