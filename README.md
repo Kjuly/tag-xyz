@@ -46,5 +46,6 @@ You can confirm your repo's workflow permissions in
 It's "Read repository contents and packages permissions" by default. If it's "Read and write permissions", you can just remove the `permissions` setting in YAML file.
 
 Further reading:  
-- [Modifying the permissions for the GITHUB_TOKEN](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token)  
+- [Modifying the permissions for the GITHUB_TOKEN](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#modifying-the-permissions-for-the-github_token)
+- [Assigning permissions to jobs](https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs)  
 - [Create a reference](https://docs.github.com/en/rest/git/refs?apiVersion=2022-11-28#create-a-reference)  
